@@ -1,4 +1,4 @@
-import accessory from "../Asset/Accessory/Accessory.webp"
+import accessory from "../Asset/accessory/Accessory.webp"
 import { accessoryModels } from "../Data/accessoryData"
 import Performance from "./Performance.jsx"
 import ProductCard from "../Components/ProductCard"
