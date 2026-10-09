@@ -1,11 +1,13 @@
-import React from 'react'
 import { useDispatch } from 'react-redux'
 import { addToCart } from '../Redux/cartSlice'
-import LearnMore from "../Pages/LeanMore"
 import { Link } from 'react-router-dom'
 
 const ProductCard = ({ product }) => {
     const dispatch = useDispatch()
+    const productName = product.name || product.title
+    const formattedPrice = typeof product.price === 'number'
+        ? product.price.toLocaleString('en-IN')
+        : product.price
 
     return (
         <div
@@ -27,7 +29,7 @@ const ProductCard = ({ product }) => {
 
             <img
                 src={product.image}
-                alt={product.name}
+                alt={productName}
                 className="
                     w-full
                     h-48
@@ -42,12 +44,13 @@ const ProductCard = ({ product }) => {
             <h2>{product.description}</h2>
 
             <h2 className="text-2xl font-semibold">
-                {product.name}
+                {productName}
             </h2>
 
             {product.price && (
                 <p className="text-black p-2 mt-2">
-                    `₹{product.price}`
+                    {product.pricePrefix ? `${product.pricePrefix} ` : ''}
+                    ₹{formattedPrice}
                 </p>
             )}
 

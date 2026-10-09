@@ -4,13 +4,29 @@ const initialState = {
     items: [],
 }
 
+const getPriceValue = (price) => {
+    if (typeof price === "number") {
+        return price;
+    }
+
+    if (typeof price === "string") {
+        return Number(price.replace(/[^\d.]/g, "")) || 0;
+    }
+
+    return 0;
+}
+
 export const cartSlice = createSlice({
     name: "cart",
     initialState,
 
     reducers: {
         addToCart: (state, action) => {
-            const product = action.payload;
+            const product = {
+                ...action.payload,
+                name: action.payload.name || action.payload.title,
+                price: getPriceValue(action.payload.price),
+            };
 
             const existProduct = state.items.find(
                 (item) => item.id === product.id
@@ -27,7 +43,7 @@ export const cartSlice = createSlice({
 
         },
 
-        removeFromcart: (state, action) => {
+        removeFromCart: (state, action) => {
             state.items = state.items.filter(
                 (item) => item.id !== action.payload
             );

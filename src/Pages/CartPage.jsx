@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { QRCodeCanvas } from "qrcode.react";
 
@@ -16,8 +16,22 @@ const CartPage = () => {
 
     const [showQR, setShowQR] = useState(false);
 
+    const getPriceValue = (price) => {
+        if (typeof price === "number") {
+            return price;
+        }
+
+        if (typeof price === "string") {
+            return Number(price.replace(/[^\d.]/g, "")) || 0;
+        }
+
+        return 0;
+    };
+
+    const formatPrice = (price) => getPriceValue(price).toLocaleString("en-IN");
+
     const total = cartItems.reduce(
-        (sum, item) => sum + item.price * item.quantity,
+        (sum, item) => sum + getPriceValue(item.price) * item.quantity,
         0
     );
 
@@ -76,7 +90,7 @@ const CartPage = () => {
                                     </p>
 
                                     <p className="text-lg font-medium mt-4">
-                                        ₹{item.price.toLocaleString("en-IN")}
+                                        ₹{formatPrice(item.price)}
                                     </p>
 
                                     {/* Quantity */}
@@ -120,7 +134,7 @@ const CartPage = () => {
 
                                 {/* Item Total */}
                                 <div className="text-xl font-semibold">
-                                    ₹{(item.price * item.quantity).toLocaleString("en-IN")}
+                                    ₹{formatPrice(getPriceValue(item.price) * item.quantity)}
                                 </div>
 
                             </div>
@@ -137,7 +151,7 @@ const CartPage = () => {
                             </span>
 
                             <span className="text-3xl font-semibold">
-                                ₹{total.toLocaleString("en-IN")}
+                                ₹{formatPrice(total)}
                             </span>
                         </div>
 
@@ -175,7 +189,7 @@ const CartPage = () => {
                         </h2>
 
                         <p className="text-gray-500 mt-2">
-                            Pay ₹{total.toLocaleString("en-IN")}
+                            Pay ₹{formatPrice(total)}
                         </p>
 
                         <div className="flex justify-center mt-6">

@@ -1,4 +1,3 @@
-import React from 'react'
 import { Link } from 'react-router-dom'
 
 import { products, latestProducts } from '../Data/products'
@@ -92,7 +91,7 @@ const StorePage = () => {
                     {latestProducts.map((product) => (
 
                         <ProductCard
-                            key={product.title}
+                            key={product.id}
                             product={product}
                         />
 
