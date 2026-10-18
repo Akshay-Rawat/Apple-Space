@@ -67,7 +67,7 @@ const ProductCard = ({ product }) => {
                     to="/LearnMore"
                     className="bg-black text-white px-5 py-2 rounded-full text-sm font-medium hover:bg-gray-800 transition"
                 >
-                    Learn more →
+                    Learn more -→
                 </Link>
 
             </div>
